@@ -1,9 +1,25 @@
 name: AutoSchematic
 version: '${project.version}'
 main: ir.wylot.autoschematic.AutoSchematic
-api-version: '1.20'
-authors: [Soheil Talaee]
-description: Load schematic on server load at a position to prevent block grief and keep spawn safe!
+authors: [Soheil Talaee, Mandali]
+description: Loads schematics on server start, protecting spawn from grief ! Supports manual schematic loading.
 website: https://github.com/thewylot
 depend:
   - WorldEdit
+
+commands:
+  autoschematic:
+    description: Manage schematic loading
+    usage: /<command> <load|list|reload>
+    permission: autoschematic.use
+
+permissions:
+  autoschematic.use:
+    description: Allows use of AutoSchematic commands
+    default: op
+  autoschematic.load:
+    description: Allows loading schematics
+    default: op
+  autoschematic.reload:
+    description: Allows reloading configuration
+    default: op

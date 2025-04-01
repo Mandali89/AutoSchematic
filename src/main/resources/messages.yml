@@ -1,0 +1,29 @@
+# colors can be used with & or § symbols
+
+prefix: "&8[&6AutoSchematic&8] &7"
+
+commands:
+  no-permission: "&cYou don't have permission to do this!"
+  reload-success: "&aConfiguration and messages reloaded successfully!"
+  help:
+    - "&6AutoSchematic Commands:"
+    - "&a/autoschematic load <filename> <x,y,z|here> &7- Load a schematic"
+    - "&a/autoschematic reload &7- Reload the plugin"
+
+  list:
+    header: "&6Available schematics (&b%count%&6):"
+    entry: "&7- &e%schematic%"
+    empty: "&cNo schematics found in schematics folder!"
+
+load:
+  usage: "&cUsage: /autoschematic load <filename> <x,y,z|here>"
+  player-only: "&cOnly players can use 'here' as a location!"
+  invalid-location: "&cInvalid location format. Use x,y,z or 'here'"
+  starting: "&aStarting schematic paste operation..."
+  success: "&aSchematic loaded successfully at %x%, %y%, %z%"
+  failed: "&cFailed to load schematic. Check console for errors."
+  file-not-found: "&cSchematic file not found: %file%"
+
+errors:
+  general: "&cAn error occurred: %error%"
+  timeout: "&cSchematic paste timed out after %seconds% seconds"

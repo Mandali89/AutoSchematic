@@ -1,0 +1,20 @@
+# should the schematic be loaded automatically on server startup?
+load-on-startup: true
+
+# default schematic to load on startup
+schematic-file: schematic.schematic
+
+# default location to paste the schematic
+spawn-x: 0
+spawn-y: 0
+spawn-z: 0
+
+# performance settings
+performance:
+  async-operations: true      # process schematic in chunks to prevent lag
+  max-blocks-per-tick: 1000   # maximum blocks to process per tick
+  chunk-size: 16              # size of processing chunks (in blocks)
+  timeout-seconds: 30         # maximum time allowed for paste operation
+  skip-light-updates: true    # skip light updates during paste
+  skip-physics: true          # skip physics updates during paste
+  ignore-air-blocks: true     # skip air blocks to improve performance

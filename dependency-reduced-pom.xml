@@ -4,8 +4,8 @@
   <groupId>ir.wylot</groupId>
   <artifactId>AutoSchematic</artifactId>
   <name>AutoSchematic</name>
-  <version>1.0.0</version>
-  <description>Load schematic on server load at a position to prevent block grief and keep spawn safe!</description>
+  <version>1.0.1</version>
+  <description>Loads schematics on server start, protecting spawn from grief ! Supports manual schematic loading.</description>
   <url>https://github.com/thewylot</url>
   <build>
     <resources>
@@ -17,13 +17,30 @@
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.5.1</version>
         <executions>
           <execution>
             <phase>package</phase>
             <goals>
               <goal>shade</goal>
             </goals>
+            <configuration>
+              <relocations>
+                <relocation>
+                  <pattern>com.cryptomorin.xseries</pattern>
+                  <shadedPattern>ir.wylot.autoschematic.libs.xseries</shadedPattern>
+                </relocation>
+              </relocations>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/**</exclude>
+                    <exclude>module-info.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -55,38 +72,22 @@
         </executions>
         <configuration>
           <jvmTarget>1.8</jvmTarget>
+          <args>
+            <arg>-Xjvm-default=all</arg>
+          </args>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <executions>
-          <execution>
-            <id>default-compile</id>
-            <phase>none</phase>
-          </execution>
-          <execution>
-            <id>default-testCompile</id>
-            <phase>none</phase>
-          </execution>
-          <execution>
-            <id>compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>testCompile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-          </execution>
-        </executions>
+        <version>3.11.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+            <arg>-parameters</arg>
+          </compilerArgs>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
     </plugins>
@@ -104,12 +105,20 @@
       <id>worldedit-repo</id>
       <url>https://maven.enginehub.org/repo/</url>
     </repository>
+    <repository>
+      <id>codemc-repo</id>
+      <url>https://repo.codemc.io/repository/maven-public/</url>
+    </repository>
+    <repository>
+      <id>jitpack</id>
+      <url>https://jitpack.io</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.20.4-R0.1-SNAPSHOT</version>
+      <version>1.21-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -124,10 +133,33 @@
       <version>2.0.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.10.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>opentest4j</artifactId>
+          <groupId>org.opentest4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-platform-commons</artifactId>
+          <groupId>org.junit.platform</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>apiguardian-api</artifactId>
+          <groupId>org.apiguardian</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
   <properties>
+    <xseries.version>11.0.0</xseries.version>
     <kotlin.version>2.0.0</kotlin.version>
     <java.version>1.8</java.version>
+    <worldedit.version>7.3.0</worldedit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <bstats.version>3.0.2</bstats.version>
   </properties>
 </project>
